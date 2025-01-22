@@ -3,7 +3,7 @@ from folium.plugins import TimestampedGeoJson
 import pandas as pd
 import numpy as np
 
-def create_temperature_map(data):
+def create_heat_map(data, field='temperature_fahrenheit'):
     # Convert 'last_updated' to datetime format
     data['last_updated'] = pd.to_datetime(data['last_updated'])
 
@@ -12,37 +12,42 @@ def create_temperature_map(data):
     max_date = data['last_updated'].max()
     timeline = pd.date_range(start=min_date, end=max_date, freq='MS')
 
+    # Calculate dynamic field range
+    min_val = data[field].min()
+    max_val = data[field].max()
+    interval = (max_val - min_val) / 4  # Divide range into 4 equal parts
+
     # Create a base map
     m = folium.Map(location=[0, 0], zoom_start=2)  # Adjusted to show the world map
 
-    # Define a function to determine the color based on temperature
-    def get_color(temperature):
-        if temperature < 50:
+    # Define a function to determine the color dynamically based on field value
+    def get_color(value):
+        if value < min_val + interval:
             return 'blue'
-        elif 50 <= temperature < 70:
+        elif min_val + interval <= value < min_val + 2 * interval:
             return 'green'
-        elif 70 <= temperature < 90:
+        elif min_val + 2 * interval <= value < min_val + 3 * interval:
             return 'orange'
         else:
             return 'red'
 
     # Add a legend to the map
     def add_legend(map_object):
-        legend_html = '''
+        legend_html = f'''
         <div style="position: fixed; 
-                    bottom: 50px; left: 50px; width: 200px; height: 120px; 
+                    bottom: 50px; left: 50px; width: 250px; height: 150px; 
                     background-color: white; z-index:9999; font-size:14px; 
                     border:2px solid grey; border-radius:5px; padding: 10px;">
-            <b>Temperature Legend</b><br>
-            <i style="background: blue; width: 10px; height: 10px; display: inline-block;"></i> Below 50°F<br>
-            <i style="background: green; width: 10px; height: 10px; display: inline-block;"></i> 50°F - 70°F<br>
-            <i style="background: orange; width: 10px; height: 10px; display: inline-block;"></i> 70°F - 90°F<br>
-            <i style="background: red; width: 10px; height: 10px; display: inline-block;"></i> Above 90°F
+            <b>{field.capitalize()} Legend</b><br>
+            <i style="background: blue; width: 10px; height: 10px; display: inline-block;"></i> {min_val:.2f} - {(min_val + interval):.2f}<br>
+            <i style="background: green; width: 10px; height: 10px; display: inline-block;"></i> {(min_val + interval):.2f} - {(min_val + 2 * interval):.2f}<br>
+            <i style="background: orange; width: 10px; height: 10px; display: inline-block;"></i> {(min_val + 2 * interval):.2f} - {(min_val + 3 * interval):.2f}<br>
+            <i style="background: red; width: 10px; height: 10px; display: inline-block;"></i> {(min_val + 3 * interval):.2f} - {max_val:.2f}
         </div>
         '''
         map_object.get_root().html.add_child(folium.Element(legend_html))
 
-    # Group by regions (assume 'region' column identifies the region)
+    # Group by regions (assume 'location_name' column identifies the region)
     region_groups = data.groupby('location_name')
 
     # Create GeoJSON features for each region and fill missing months
@@ -57,8 +62,8 @@ def create_temperature_map(data):
         for _, row in resampled_group.iterrows():
             avg_lat = row['latitude'] if not np.isnan(row['latitude']) else 0
             avg_lon = row['longitude'] if not np.isnan(row['longitude']) else 0
-            avg_temperature = row['temperature_fahrenheit'] if not np.isnan(row['temperature_fahrenheit']) else 0
-            color = get_color(avg_temperature)
+            avg_value = row[field] if not np.isnan(row[field]) else 0
+            color = get_color(avg_value)
 
             feature = {
                 'type': 'Feature',
@@ -80,7 +85,7 @@ def create_temperature_map(data):
                         'stroke': 'true',
                         'color': color
                     },
-                    'popup': f"Average Temperature: {avg_temperature:.2f}°F\nLocation: {region}"
+                    'popup': f"Average {field.capitalize()}: {avg_value:.2f}\nLocation: {region}"
                 }
             }
             features.append(feature)
