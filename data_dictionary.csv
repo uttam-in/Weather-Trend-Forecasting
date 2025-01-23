@@ -1,0 +1,42 @@
+﻿Field,Title,Data Category,Description
+country,Country,Categorical,The country where the weather data is recorded.
+location_name,Location Name,Categorical,"The name of the location (e.g., city, town, or region)."
+latitude,Latitude,Numerical (float),"The latitude coordinate of the location, ranging from -90 to 90 degrees."
+longitude,Longitude,Numerical (float),"The longitude coordinate of the location, ranging from -180 to 180 degrees."
+timezone,Timezone,Categorical,The timezone of the location where the data is recorded.
+last_updated_epoch,Last Updated (Epoch),Numerical (integer),The Unix timestamp indicating the last time the data was updated.
+last_updated,Last Updated (Local Time),DateTime,The local time when the weather data was last updated.
+temperature_celsius,Temperature (Celsius),Numerical (float),"The temperature recorded at the location, measured in degrees Celsius."
+temperature_fahrenheit,Temperature (Fahrenheit),Numerical (float),"The temperature recorded at the location, measured in degrees Fahrenheit."
+condition_text,Weather Condition,Categorical,"A description of the current weather condition (e.g., ""Sunny,"" ""Partly Cloudy,"" ""Rainy"")."
+wind_mph,Wind Speed (mph),Numerical (float),The wind speed measured in miles per hour (mph).
+wind_kph,Wind Speed (kph),Numerical (float),The wind speed measured in kilometers per hour (kph).
+wind_degree,Wind Direction (Degree),Numerical (integer),"The direction the wind is coming from, measured in degrees (0° to 360°)."
+wind_direction,Wind Direction (Text),Categorical,"The direction of the wind in cardinal directions (e.g., N, NE, SW)."
+pressure_mb,Pressure (mb),Numerical (float),The atmospheric pressure measured in millibars (mb).
+pressure_in,Pressure (inches),Numerical (float),The atmospheric pressure measured in inches.
+precip_mm,Precipitation (mm),Numerical (float),The amount of precipitation (rainfall or snowfall) measured in millimeters.
+precip_in,Precipitation (inches),Numerical (float),The amount of precipitation measured in inches.
+humidity,Humidity,Numerical (integer),"The relative humidity, represented as a percentage (0–100)."
+cloud,Cloud Cover,Numerical (integer),The percentage of the sky covered by clouds (0–100).
+feels_like_celsius,Feels Like (Celsius),Numerical (float),"The ""feels like"" temperature in degrees Celsius, taking into account factors such as wind chill and humidity."
+feels_like_fahrenheit,Feels Like (Fahrenheit),Numerical (float),"The ""feels like"" temperature in degrees Fahrenheit, accounting for wind chill and humidity."
+visibility_km,Visibility (km),Numerical (float),"The visibility distance, measured in kilometers."
+visibility_miles,Visibility (miles),Numerical (float),"The visibility distance, measured in miles."
+uv_index,UV Index,Numerical (float),"The ultraviolet (UV) radiation index, representing the risk of harm from sun exposure."
+gust_mph,Wind Gust (mph),Numerical (float),"The maximum wind gust speed, measured in miles per hour."
+gust_kph,Wind Gust (kph),Numerical (float),"The maximum wind gust speed, measured in kilometers per hour."
+air_quality_Carbon_Monoxide,Air Quality: Carbon Monoxide,Numerical (float),"The concentration of carbon monoxide (CO) in the air, measured in micrograms per cubic meter (µg/m³)."
+air_quality_Ozone,Air Quality: Ozone,Numerical (float),"The concentration of ozone (O₃) in the air, measured in micrograms per cubic meter (µg/m³)."
+air_quality_Nitrogen_dioxide,Air Quality: Nitrogen Dioxide,Numerical (float),"The concentration of nitrogen dioxide (NO₂) in the air, measured in micrograms per cubic meter (µg/m³)."
+air_quality_Sulphur_dioxide,Air Quality: Sulphur Dioxide,Numerical (float),"The concentration of sulfur dioxide (SO₂) in the air, measured in micrograms per cubic meter (µg/m³)."
+air_quality_PM2.5,Air Quality: PM2.5,Numerical (float),"The concentration of fine particulate matter (PM2.5) in the air, measured in micrograms per cubic meter (µg/m³)."
+air_quality_PM10,Air Quality: PM10,Numerical (float),"The concentration of coarse particulate matter (PM10) in the air, measured in micrograms per cubic meter (µg/m³)."
+air_quality_us-epa-index,Air Quality: US EPA Index,Categorical (ordinal),The air quality index (AQI) as defined by the US Environmental Protection Agency (EPA).
+air_quality_gb-defra-index,Air Quality: GB DEFRA Index,Categorical (ordinal),"The air quality index (AQI) as defined by the UK's Department for Environment, Food & Rural Affairs (DEFRA)."
+sunrise,Sunrise Time,Time,The local time when the sun rises at the location.
+sunset,Sunset Time,Time,The local time when the sun sets at the location.
+moonrise,Moonrise Time,Time,The local time when the moon rises at the location.
+moonset,Moonset Time,Time,The local time when the moon sets at the location.
+moon_phase,Moon Phase,Categorical,"The current phase of the moon (e.g., New Moon, Full Moon, Waxing Crescent)."
+moon_illumination,Moon Illumination Percentage,Numerical (percentage),The percentage of the moon that is illuminated.
