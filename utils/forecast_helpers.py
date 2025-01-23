@@ -30,8 +30,6 @@ def forecast_with_arima(data, field, p, d, q, steps):
 # Function to update the plot with ARIMA forecast
 def update_plot_with_forecast_arima(data,output, country, location_name, field, p, d, q, steps):
     data_filtered = filter_data_country_location(data, country, location_name)
-    y = data_filtered[field]
-    x = data_filtered.index  # Use the index for plotting
 
     try:
         train_data, test_data, forecast, forecast_index, mse = forecast_with_arima(data_filtered, field, p, d, q, steps)
